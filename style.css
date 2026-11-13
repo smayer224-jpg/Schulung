@@ -33,6 +33,11 @@ body {
   max-width: 520px;
   margin: 0 auto;
   padding: 12px;
+  /* Abstand zur Kamera-Aussparung und zum Rand bei Handys mit "Notch" */
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
   display: flex;
   flex-direction: column;
   gap: 12px;

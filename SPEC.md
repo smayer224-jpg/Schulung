@@ -120,8 +120,14 @@ Weitere Regeln für die Gestaltung:
 
 ## 6. Technik und Grenzen
 - Nur **HTML, CSS und JavaScript**. Keine externen Bibliotheken, keine Schriften oder Dateien aus dem Internet.
-- Drei Dateien: `index.html`, `style.css`, `app.js`. Die bisherige `index.html` mit „Hallo“ wird ersetzt.
+- Dateien: `index.html`, `style.css`, `app.js`. Die bisherige `index.html` mit „Hallo“ wird ersetzt.
 - Die App läuft durch Öffnen von `index.html` im Browser. Man braucht keinen Server und keine Installation.
+- **Handy-App (PWA)**: Die App kann man auf dem Handy installieren („Zum Startbildschirm hinzufügen“).
+  - `manifest.json`: Name, Farben und Symbol der App.
+  - `sw.js`: Offline-Helfer. Er legt die App-Dateien auf dem Handy ab. So startet die App auch ohne Internet.
+  - `icons/`: App-Symbol (Hufeisen) in den Größen 512, 192 und 180 Pixel (für das iPhone).
+  - Zum Installieren muss die App über eine **https-Adresse** erreichbar sein, zum Beispiel über GitHub Pages. Als Datei per Doppelklick läuft sie weiter, aber ohne Offline-Helfer.
+  - Wichtig: Jede Adresse hat ihren eigenen Speicher. Daten aus der Datei-Version erscheinen nicht automatisch in der installierten App. Man überträgt sie mit der Sicherungsdatei.
 - Speicherung nur über `localStorage` im Browser.
 - **Grenzen**:
   - Daten gibt es nur auf dem Gerät und in dem Browser, in dem sie eingetragen wurden.
@@ -150,3 +156,5 @@ Die App ist fertig, wenn alle Punkte stimmen:
 - [ ] Eine falsche oder kaputte Datei zeigt eine verständliche Fehlermeldung und ändert keine Daten.
 - [ ] Auf einem Handy-Bildschirm (360 Pixel breit) muss man nicht seitlich scrollen. Alles ist gut bedienbar.
 - [ ] Der Code nutzt keine externen Bibliotheken und keine Dateien aus dem Internet.
+- [ ] Über die https-Adresse lässt sich die App auf dem Handy zum Startbildschirm hinzufügen. Sie zeigt das Hufeisen-Symbol und öffnet sich ohne Browser-Leiste.
+- [ ] Nach dem ersten Öffnen startet die installierte App auch im Flugmodus.

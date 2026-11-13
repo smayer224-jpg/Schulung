@@ -566,6 +566,17 @@ function start() {
   wendeFarbenAn();
   zeigeLegende();
   allesAnzeigen();
+  offlineHelferStarten();
+}
+
+// Startet den Offline-Helfer (sw.js). Das klappt nur, wenn die App
+// über eine Internet-Adresse (https) geöffnet wird, nicht als Datei.
+function offlineHelferStarten() {
+  if (!("serviceWorker" in navigator)) return;
+  if (location.protocol !== "https:" && location.hostname !== "localhost") return;
+  navigator.serviceWorker.register("sw.js").catch(() => {
+    // Ohne Offline-Helfer funktioniert die App trotzdem, nur nicht offline.
+  });
 }
 
 start();

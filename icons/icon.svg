@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#8b5a2b"/>
+  <!-- Hufeisen -->
+  <path d="M168 372 L168 250 A88 88 0 0 1 344 250 L344 372"
+        fill="none" stroke="#f4e3c8" stroke-width="60" stroke-linecap="round"/>
+  <!-- Nagellöcher -->
+  <g fill="#8b5a2b">
+    <circle cx="168" cy="330" r="9"/>
+    <circle cx="168" cy="280" r="9"/>
+    <circle cx="186" cy="212" r="9"/>
+    <circle cx="344" cy="330" r="9"/>
+    <circle cx="344" cy="280" r="9"/>
+    <circle cx="326" cy="212" r="9"/>
+  </g>
+</svg>
