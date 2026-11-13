@@ -25,12 +25,14 @@ Man sieht auf einen Blick, was an welchem Tag passiert ist oder geplant ist.
 9. **Sicherung herunterladen**: Ein Knopf lädt alle Daten als Datei herunter (`pferd-sicherung.json`).
 10. **Sicherung einlesen**: Ein Knopf liest so eine Datei wieder ein. Vorher fragt die App: „Vorhandene Daten ersetzen?“
 11. **Farb-Legende**: Unter dem Kalender steht, welche Farbe zu welcher Kategorie gehört.
+12. **Farben ändern**: Ein Knopf „Farben ändern“ unter der Legende öffnet ein Fenster. Dort wählt man für jede Kategorie eine eigene Farbe. Ein Knopf „Standardfarben“ setzt alle Farben zurück. Die Farben gelten überall: im Kalender, in der Legende, in der Tagesansicht und bei „Nächste Termine“.
 
 ### Soll (zwei sichtbare Highlights)
 1. **Pferde-Steckbrief** (oben auf der Seite)
    - Zeigt den Namen, die Rasse und das Alter des Pferdes.
-   - Ein runder Kreis mit dem Anfangsbuchstaben des Namens ersetzt ein Foto.
-   - Über „Bearbeiten“ kann man Name, Rasse und Geburtsjahr eintragen. Das Alter rechnet die App selbst aus.
+   - Ein runder Kreis zeigt ein Bild des Pferdes. Ohne Bild steht dort der Anfangsbuchstabe des Namens.
+   - Über „Bearbeiten“ kann man Bild, Name, Rasse und Geburtsjahr eintragen. Das Alter rechnet die App selbst aus.
+   - Das Bild wird automatisch quadratisch zugeschnitten und auf 240 × 240 Pixel verkleinert, damit es in den Browser-Speicher passt. Man kann es auch wieder entfernen.
 2. **Nächste Termine** (unter dem Steckbrief)
    - Ein Kasten zeigt den nächsten Termin beim **Hufschmied** und beim **Tierarzt**.
    - Beispiel: „Hufschmied: in 5 Tagen (18.11.)“ oder „Tierarzt: heute“.
@@ -42,7 +44,7 @@ Man sieht auf einen Blick, was an welchem Tag passiert ist oder geplant ist.
 - Kein Erledigt-Häkchen.
 - Keine Wiederholungen (zum Beispiel „jeden Tag ein Medikament“).
 - Keine Kosten oder Rechnungen.
-- Keine echten Fotos hochladen.
+- Nur ein Bild für das Pferd, keine Fotos zu einzelnen Tagen oder Einträgen.
 - Nur ein Pferd, nicht mehrere.
 - Keine Erinnerungen oder Benachrichtigungen.
 - Kein Login, kein Server, keine Synchronisierung zwischen Geräten. Daten bringt man über die Sicherungsdatei auf ein anderes Gerät.
@@ -51,6 +53,8 @@ Man sieht auf einen Blick, was an welchem Tag passiert ist oder geplant ist.
 ## 4. Daten
 
 ### Kategorien
+Die Farben sind die Standardfarben. Man kann sie in der App ändern.
+
 | Schlüssel     | Anzeige       | Farbe  |
 |---------------|---------------|--------|
 | `training`    | Training      | Grün   |
@@ -70,7 +74,11 @@ Aufbau:
   "pferd": {
     "name": "Luna",
     "rasse": "Haflinger",
-    "geburtsjahr": 2015
+    "geburtsjahr": 2015,
+    "bild": "data:image/jpeg;base64,..."
+  },
+  "farben": {
+    "training": "#00aa88"
   },
   "tage": {
     "2026-11-13": {
@@ -85,16 +93,18 @@ Aufbau:
 ```
 - Das Datum ist immer im Format `JJJJ-MM-TT`.
 - Ein Tag ohne Einträge wird aus `tage` entfernt.
+- `bild` ist das verkleinerte Bild als Text (Data-URL). Leer bedeutet: kein Bild.
+- In `farben` stehen nur Farben, die vom Standard abweichen. Format: `#rrggbb`.
 - Die Sicherungsdatei hat genau denselben Aufbau.
 
 ## 5. Oberfläche
 Von oben nach unten, gebaut für das Handy (schmaler Bildschirm):
 
-1. **Steckbrief**: Kreis mit Anfangsbuchstabe, Name, Rasse, Alter, Knopf „Bearbeiten“.
+1. **Steckbrief**: Kreis mit Bild oder Anfangsbuchstabe, Name, Rasse, Alter, Knopf „Bearbeiten“.
 2. **Nächste Termine**: Kasten mit Hufschmied und Tierarzt.
 3. **Monatskopf**: „◀ November 2026 ▶“ und Knopf „Heute“.
 4. **Kalender-Raster**: 7 Spalten (Mo–So), Tageszahl und farbige Punkte darunter.
-5. **Legende**: 6 Farben mit Namen.
+5. **Legende**: 6 Farben mit Namen, darunter der Knopf „Farben ändern“.
 6. **Sicherung**: Knöpfe „Sicherung herunterladen“ und „Sicherung einlesen“.
 
 **Tagesansicht** (öffnet sich als Fenster über dem Kalender):
@@ -131,6 +141,9 @@ Die App ist fertig, wenn alle Punkte stimmen:
 - [ ] Leert man ein Feld und speichert, verschwindet der Punkt.
 - [ ] Nach dem Neuladen der Seite sind alle Daten noch da.
 - [ ] Der Steckbrief zeigt Name, Rasse, Alter und den Anfangsbuchstaben. Änderungen bleiben gespeichert.
+- [ ] Man kann ein Bild auswählen. Es erscheint rund im Steckbrief und ist nach dem Neuladen noch da. „Bild entfernen“ zeigt wieder den Anfangsbuchstaben.
+- [ ] Unter „Farben ändern“ kann man jede Farbe ändern. Nach dem Speichern haben alle Punkte und die Legende die neue Farbe, auch nach dem Neuladen. „Standardfarben“ stellt die alten Farben wieder her.
+- [ ] Bild und Farben sind in der Sicherungsdatei enthalten und werden beim Einlesen wiederhergestellt.
 - [ ] „Nächste Termine“ zeigt den nächsten Hufschmied- und Tierarzt-Termin ab heute richtig an, oder „Kein Termin geplant“.
 - [ ] „Sicherung herunterladen“ lädt eine JSON-Datei mit allen Daten herunter.
 - [ ] „Sicherung einlesen“ stellt die Daten aus dieser Datei wieder her, nachdem man die Rückfrage bestätigt hat.

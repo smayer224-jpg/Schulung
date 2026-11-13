@@ -1,0 +1,353 @@
+/* Farben der Kategorien und Grundfarben */
+:root {
+  --training: #2e9e4f;
+  --gesundheit: #2f6fd6;
+  --medikamente: #8a4fd1;
+  --hufschmied: #e07b12;
+  --tierarzt: #d64545;
+  --sonstiges: #7a7a7a;
+
+  --hintergrund: #f4f1ec;
+  --karte: #ffffff;
+  --text: #222222;
+  --leise: #5f5f5f;
+  --rand: #ddd6cc;
+  --akzent: #8b5a2b;
+  --heute: #fbe9d3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--hintergrund);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+h1 { font-size: 1.4rem; }
+h2 { font-size: 1.1rem; }
+
+.leise { color: var(--leise); margin: 2px 0 0; }
+
+.karte {
+  background: var(--karte);
+  border: 1px solid var(--rand);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+/* Knöpfe */
+.knopf {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--rand);
+  border-radius: 10px;
+  background: #faf8f5;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.knopf:hover { background: #f0ebe4; }
+.knopf:focus-visible { outline: 3px solid var(--akzent); outline-offset: 2px; }
+
+.knopf.haupt {
+  background: var(--akzent);
+  border-color: var(--akzent);
+  color: #fff;
+}
+.knopf.haupt:hover { background: #74491f; }
+
+.knopf.klein { padding: 6px 12px; }
+
+.knopf-reihe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.knopf-reihe .knopf { flex: 1 1 auto; }
+
+/* Steckbrief */
+.steckbrief {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  flex: 0 0 auto;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--akzent);
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  overflow: hidden;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.steckbrief .knopf {
+  flex: 0 0 auto;
+}
+
+/* Bild im Steckbrief-Dialog */
+.bild-zeile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: normal;
+}
+.bild-zeile .avatar {
+  width: 72px;
+  height: 72px;
+}
+.bild-knoepfe {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+}
+
+#bildMeldung:empty {
+  display: none;
+}
+
+/* Farben ändern */
+.farben-knopf {
+  display: block;
+  margin: 12px auto 0;
+}
+.standard-knopf {
+  margin-top: 12px;
+}
+.farb-feld {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+.farb-feld input[type="color"] {
+  width: 64px;
+  height: 44px;
+  padding: 2px;
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.steckbrief-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.steckbrief-text h1,
+.steckbrief-text p {
+  overflow-wrap: anywhere;
+}
+
+/* Nächste Termine */
+.termin-liste {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.termin-liste li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Farbige Punkte */
+.punkt {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--farbe);
+  flex: 0 0 auto;
+}
+
+/* Kalender */
+.monatskopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.monatskopf h2 {
+  text-align: center;
+  flex: 1 1 auto;
+}
+.knopf.pfeil { padding: 0; }
+
+.heute-knopf {
+  display: block;
+  margin: 8px auto 10px;
+}
+
+.wochentage,
+.raster {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.wochentage span {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--leise);
+  padding-bottom: 4px;
+}
+
+.tag {
+  min-height: 52px;
+  padding: 4px 2px;
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.tag:hover { background: #f7f3ee; }
+.tag:focus-visible { outline: 3px solid var(--akzent); outline-offset: 1px; }
+
+.tag.leer {
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.tag.heute {
+  background: var(--heute);
+  border: 2px solid var(--akzent);
+  font-weight: bold;
+}
+
+.tag-zahl { font-size: 0.95rem; }
+
+.tag-punkte {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  max-width: 100%;
+}
+.tag-punkte .punkt {
+  width: 7px;
+  height: 7px;
+}
+
+/* Legende */
+.legende {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 6px;
+  font-size: 0.9rem;
+}
+.legende li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Meldungen */
+.meldung {
+  margin: 10px 0 0;
+  min-height: 1.4em;
+}
+.meldung.fehler { color: #b3261e; }
+.meldung.ok { color: #1f7a3a; }
+
+/* Dialoge */
+dialog {
+  width: calc(100% - 24px);
+  max-width: 480px;
+  max-height: calc(100% - 24px);
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  color: var(--text);
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.feld {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.feld-kopf {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.feld textarea,
+.feld input {
+  width: 100%;
+  font: inherit;
+  font-weight: normal;
+  padding: 8px;
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  min-height: 44px;
+}
+.feld textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+.feld textarea:focus,
+.feld input:focus {
+  outline: 2px solid var(--akzent);
+  border-color: var(--akzent);
+}

@@ -3,9 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hallo</title>
+  <title>Pferde-Kalender</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hallo</h1>
+  <main class="app">
+
+    <!-- Highlight 1: Steckbrief -->
+    <section class="karte steckbrief" aria-label="Steckbrief">
+      <div class="avatar" id="avatar" aria-hidden="true">?</div>
+      <div class="steckbrief-text">
+        <h1 id="pferdName">Mein Pferd</h1>
+        <p id="pferdInfo" class="leise">Noch keine Angaben</p>
+      </div>
+      <button type="button" class="knopf klein" id="steckbriefBearbeiten">Bearbeiten</button>
+    </section>
+
+    <!-- Highlight 2: Nächste Termine -->
+    <section class="karte termine" aria-label="Nächste Termine">
+      <h2>Nächste Termine</h2>
+      <ul class="termin-liste">
+        <li><span class="punkt" style="--farbe: var(--hufschmied)"></span><strong>Hufschmied:</strong> <span id="terminHufschmied">Kein Termin geplant</span></li>
+        <li><span class="punkt" style="--farbe: var(--tierarzt)"></span><strong>Tierarzt:</strong> <span id="terminTierarzt">Kein Termin geplant</span></li>
+      </ul>
+    </section>
+
+    <!-- Kalender -->
+    <section class="karte kalender" aria-label="Kalender">
+      <div class="monatskopf">
+        <button type="button" class="knopf pfeil" id="monatZurueck" aria-label="Vorheriger Monat">◀</button>
+        <h2 id="monatTitel">Monat</h2>
+        <button type="button" class="knopf pfeil" id="monatVor" aria-label="Nächster Monat">▶</button>
+      </div>
+      <button type="button" class="knopf klein heute-knopf" id="zuHeute">Heute</button>
+
+      <div class="wochentage" aria-hidden="true">
+        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+      </div>
+      <div class="raster" id="raster"></div>
+
+      <ul class="legende" id="legende" aria-label="Farb-Legende"></ul>
+      <button type="button" class="knopf klein farben-knopf" id="farbenAendern">Farben ändern</button>
+    </section>
+
+    <!-- Sicherung -->
+    <section class="karte sicherung" aria-label="Sicherung">
+      <h2>Sicherung</h2>
+      <div class="knopf-reihe">
+        <button type="button" class="knopf" id="sicherungLaden">Sicherung herunterladen</button>
+        <button type="button" class="knopf" id="sicherungEinlesen">Sicherung einlesen</button>
+      </div>
+      <input type="file" id="dateiAuswahl" accept=".json,application/json" hidden>
+      <p id="meldung" class="meldung" role="status"></p>
+    </section>
+  </main>
+
+  <!-- Tagesansicht -->
+  <dialog id="tagDialog">
+    <form method="dialog" id="tagFormular">
+      <h2 id="tagTitel">Datum</h2>
+      <div id="tagFelder"></div>
+      <div class="knopf-reihe">
+        <button type="button" class="knopf" id="tagAbbrechen">Abbrechen</button>
+        <button type="submit" class="knopf haupt">Speichern</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Steckbrief bearbeiten -->
+  <dialog id="pferdDialog">
+    <form method="dialog" id="pferdFormular">
+      <h2>Steckbrief bearbeiten</h2>
+      <div class="feld">Bild
+        <div class="bild-zeile">
+          <div class="avatar" id="bildVorschau" aria-hidden="true">?</div>
+          <div class="bild-knoepfe">
+            <button type="button" class="knopf klein" id="bildWaehlen">Bild auswählen</button>
+            <button type="button" class="knopf klein" id="bildEntfernen">Bild entfernen</button>
+          </div>
+        </div>
+        <input type="file" id="bildAuswahl" accept="image/*" hidden>
+        <p id="bildMeldung" class="meldung" role="status"></p>
+      </div>
+      <label class="feld">Name
+        <input type="text" id="eingabeName" maxlength="40" autocomplete="off">
+      </label>
+      <label class="feld">Rasse
+        <input type="text" id="eingabeRasse" maxlength="40" autocomplete="off">
+      </label>
+      <label class="feld">Geburtsjahr
+        <input type="number" id="eingabeJahr" min="1950" step="1" inputmode="numeric">
+      </label>
+      <div class="knopf-reihe">
+        <button type="button" class="knopf" id="pferdAbbrechen">Abbrechen</button>
+        <button type="submit" class="knopf haupt">Speichern</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Farben ändern -->
+  <dialog id="farbDialog">
+    <form method="dialog" id="farbFormular">
+      <h2>Farben der Punkte</h2>
+      <p class="leise">Tippe auf ein Farbfeld, um die Farbe zu ändern.</p>
+      <div id="farbFelder"></div>
+      <button type="button" class="knopf klein standard-knopf" id="farbenStandard">Standardfarben</button>
+      <div class="knopf-reihe">
+        <button type="button" class="knopf" id="farbAbbrechen">Abbrechen</button>
+        <button type="submit" class="knopf haupt">Speichern</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
 </body>
 </html>
