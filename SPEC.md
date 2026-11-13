@@ -26,6 +26,12 @@ Man sieht auf einen Blick, was an welchem Tag passiert ist oder geplant ist.
 10. **Sicherung einlesen**: Ein Knopf liest so eine Datei wieder ein. Vorher fragt die App: „Vorhandene Daten ersetzen?“
 11. **Farb-Legende**: Unter dem Kalender steht, welche Farbe zu welcher Kategorie gehört.
 12. **Farben ändern**: Ein Knopf „Farben ändern“ unter der Legende öffnet ein Fenster. Dort wählt man für jede Kategorie eine eigene Farbe. Ein Knopf „Standardfarben“ setzt alle Farben zurück. Die Farben gelten überall: im Kalender, in der Legende, in der Tagesansicht und bei „Nächste Termine“.
+13. **Fotos bei Einträgen**: In der Tagesansicht hat jede Kategorie unter dem Textfeld einen Knopf „+ Foto“.
+    - Man kann bis zu 10 Fotos pro Kategorie und Tag hinzufügen, auch mehrere auf einmal.
+    - Die Fotos erscheinen als kleine Vorschaubilder. Ein Tipp darauf zeigt das Foto groß. Mit „×“ entfernt man es.
+    - Jedes Foto wird auf höchstens 1280 Pixel (längste Seite) verkleinert.
+    - Eine Kategorie bekommt auch dann einen Punkt im Kalender, wenn sie nur ein Foto und keinen Text hat.
+    - Änderungen gelten erst nach „Speichern“. „Abbrechen“ verwirft neue und entfernte Fotos.
 
 ### Soll (zwei sichtbare Highlights)
 1. **Pferde-Steckbrief** (oben auf der Seite)
@@ -44,7 +50,7 @@ Man sieht auf einen Blick, was an welchem Tag passiert ist oder geplant ist.
 - Kein Erledigt-Häkchen.
 - Keine Wiederholungen (zum Beispiel „jeden Tag ein Medikament“).
 - Keine Kosten oder Rechnungen.
-- Nur ein Bild für das Pferd, keine Fotos zu einzelnen Tagen oder Einträgen.
+- Keine Videos, keine Bildbearbeitung (Drehen, Zuschneiden) bei Fotos zu Einträgen.
 - Nur ein Pferd, nicht mehrere.
 - Keine Erinnerungen oder Benachrichtigungen.
 - Kein Login, kein Server, keine Synchronisierung zwischen Geräten. Daten bringt man über die Sicherungsdatei auf ein anderes Gerät.
@@ -95,6 +101,9 @@ Aufbau:
 - Ein Tag ohne Einträge wird aus `tage` entfernt.
 - `bild` ist das verkleinerte Bild als Text (Data-URL). Leer bedeutet: kein Bild.
 - In `farben` stehen nur Farben, die vom Standard abweichen. Format: `#rrggbb`.
+- In `fotos` stehen pro Tag und Kategorie nur die **IDs** der Fotos, zum Beispiel `{ "2026-11-13": { "training": ["m3k2-ab12cd34"] } }`.
+- Die Fotos selbst liegen in einem zweiten Browser-Speicher (**IndexedDB**, Datenbank `pferdeKalenderFotos`), weil `localStorage` nur etwa 5 MB fasst. Schlüssel ist die Foto-ID, Wert ist das Foto als Data-URL (JPEG).
+- Die Sicherungsdatei enthält zusätzlich `fotoDaten`: `{ "foto-id": "data:image/jpeg;base64,..." }`. Ältere Sicherungen ohne Fotos lassen sich weiter einlesen.
 - Die Sicherungsdatei hat genau denselben Aufbau.
 
 ## 5. Oberfläche
@@ -150,6 +159,10 @@ Die App ist fertig, wenn alle Punkte stimmen:
 - [ ] Man kann ein Bild auswählen. Es erscheint rund im Steckbrief und ist nach dem Neuladen noch da. „Bild entfernen“ zeigt wieder den Anfangsbuchstaben.
 - [ ] Unter „Farben ändern“ kann man jede Farbe ändern. Nach dem Speichern haben alle Punkte und die Legende die neue Farbe, auch nach dem Neuladen. „Standardfarben“ stellt die alten Farben wieder her.
 - [ ] Bild und Farben sind in der Sicherungsdatei enthalten und werden beim Einlesen wiederhergestellt.
+- [ ] In der Tagesansicht kann man zu jeder Kategorie Fotos hinzufügen. Nach dem Speichern und Neuladen sind sie noch da.
+- [ ] Ein Tipp auf ein Vorschaubild zeigt das Foto groß. „×“ entfernt es, nach „Speichern“ dauerhaft.
+- [ ] Ein Eintrag nur mit Foto (ohne Text) zeigt einen Punkt im Kalender.
+- [ ] Fotos sind in der Sicherungsdatei enthalten und werden beim Einlesen wiederhergestellt.
 - [ ] „Nächste Termine“ zeigt den nächsten Hufschmied- und Tierarzt-Termin ab heute richtig an, oder „Kein Termin geplant“.
 - [ ] „Sicherung herunterladen“ lädt eine JSON-Datei mit allen Daten herunter.
 - [ ] „Sicherung einlesen“ stellt die Daten aus dieser Datei wieder her, nachdem man die Rückfrage bestätigt hat.

@@ -145,8 +145,90 @@ h2 { font-size: 1.1rem; }
   flex: 1 1 auto;
 }
 
-#bildMeldung:empty {
+#bildMeldung:empty,
+#tagMeldung:empty {
   display: none;
+}
+
+/* Fotos in der Tagesansicht */
+.fotos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+}
+
+.foto-mini {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.foto-oeffnen {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #eee;
+  cursor: pointer;
+}
+.foto-oeffnen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.foto-oeffnen:focus-visible,
+.foto-weg:focus-visible {
+  outline: 3px solid var(--akzent);
+  outline-offset: 2px;
+}
+
+/* Kleiner runder Löschknopf. Die unsichtbare Fläche drumherum
+   macht ihn trotzdem gut antippbar. */
+.foto-weg {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.foto-weg span {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.foto-plus {
+  min-height: 44px;
+}
+
+/* Foto groß */
+.foto-dialog {
+  padding: 10px;
+}
+.foto-dialog img {
+  display: block;
+  max-width: 100%;
+  max-height: 75vh;
+  margin: 0 auto;
+  border-radius: 8px;
 }
 
 /* Farben ändern */
@@ -203,8 +285,8 @@ h2 { font-size: 1.1rem; }
 /* Farbige Punkte */
 .punkt {
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: var(--farbe);
   flex: 0 0 auto;
@@ -243,7 +325,7 @@ h2 { font-size: 1.1rem; }
 }
 
 .tag {
-  min-height: 52px;
+  min-height: 60px;
   padding: 4px 2px;
   border: 1px solid var(--rand);
   border-radius: 8px;
@@ -277,12 +359,14 @@ h2 { font-size: 1.1rem; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2px;
-  max-width: 100%;
+  gap: 3px;
+  max-width: 24px; /* höchstens 2 Punkte pro Reihe, passt auch aufs Handy */
 }
 .tag-punkte .punkt {
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
+  /* dunkler Rand, damit auch helle Farben gut sichtbar sind */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 
 /* Legende */

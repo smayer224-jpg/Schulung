@@ -75,6 +75,8 @@
     <form method="dialog" id="tagFormular">
       <h2 id="tagTitel">Datum</h2>
       <div id="tagFelder"></div>
+      <input type="file" id="fotoAuswahl" accept="image/*" multiple hidden>
+      <p id="tagMeldung" class="meldung" role="status"></p>
       <div class="knopf-reihe">
         <button type="button" class="knopf" id="tagAbbrechen">Abbrechen</button>
         <button type="submit" class="knopf haupt">Speichern</button>
@@ -111,6 +113,14 @@
         <button type="submit" class="knopf haupt">Speichern</button>
       </div>
     </form>
+  </dialog>
+
+  <!-- Foto groß anzeigen -->
+  <dialog id="fotoDialog" class="foto-dialog">
+    <img id="fotoGross" alt="">
+    <div class="knopf-reihe">
+      <button type="button" class="knopf" id="fotoSchliessen">Schließen</button>
+    </div>
   </dialog>
 
   <!-- Farben ändern -->
